@@ -9,6 +9,7 @@
 #include "font_awesome_symbols.h"
 #include "iot/thing_manager.h"
 #include "assets/lang_config.h"
+#include "custom.h"
 
 #include <cstring>
 #include <esp_log.h>
@@ -424,6 +425,7 @@ void Application::Start() {
             auto text = cJSON_GetObjectItem(root, "text");
             if (text != NULL) {
                 ESP_LOGI(TAG, ">> %s", text->valuestring);
+                Custom::AdjustVolumeCheck(text->valuestring); //自定义音量控制-lc
                 Schedule([this, display, message = std::string(text->valuestring)]() {
                     display->SetChatMessage("user", message.c_str());
                 });
