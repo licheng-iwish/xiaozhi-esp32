@@ -8,6 +8,7 @@
 #include "iot/thing_manager.h"
 #include "led/single_led.h"
 #include "assets/lang_config.h"
+#include "custom/custom.h"
 
 #include <wifi_station.h>
 #include <esp_log.h>
@@ -110,6 +111,8 @@ private:
                 ResetWifiConfiguration();
             }
             app.ToggleChatState();
+            std::vector<uint8_t> opus = Custom::encodeAudio(Lang::Sounds::P3_HELLO_SIRO);
+            app.SendCustomAudio(opus);
         });
         touch_button_.OnPressDown([this]() {
             Application::GetInstance().StartListening();
